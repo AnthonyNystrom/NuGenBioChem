@@ -1,0 +1,11 @@
+﻿<Window x:Class="NuGenBioChem.BondMaterialEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:NuGenBioChem="clr-namespace:NuGenBioChem" 
+        Title="Advanced Parameters of the Bond Material" 
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" 
+        WindowStyle="ToolWindow" ShowInTaskbar="False">
+    <StackPanel Margin="4">
+            <NuGenBioChem:MaterialControl DataContext="{Binding}" Margin="2"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:NuGenBioChem.Controls">
+  <Style TargetType="{x:Type Controls:UndoItem}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Controls:UndoItem}">
+        	<Border x:Name="border" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="2" Background="{DynamicResource TransparentBrush}" Height="Auto">
+        		<Border x:Name="border1" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" Height="Auto" CornerRadius="1" Background="{DynamicResource TransparentBrush}">
+        			<ContentPresenter Height="Auto" Width="Auto" Margin="2"/>
+        		</Border>
+        	</Border>
+        	<ControlTemplate.Triggers>
+        		<Trigger Property="IsSelected" Value="True">
+        			<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+        			<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+        			<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+        		</Trigger>
+        	</ControlTemplate.Triggers>
+          
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

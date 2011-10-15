@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="NuGenBioChem.Controls.Backstage.PrintTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:NuGenBioChem="clr-namespace:NuGenBioChem" xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" xmlns:Visualization="clr-namespace:NuGenBioChem.Visualization" xmlns:Backstage="clr-namespace:NuGenBioChem.Controls.Backstage" mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+  <UserControl.Resources>
+    <Backstage:PrintStatusConverter x:Key="PrintStatusConvert"/>
+    <Backstage:PageSizeNameConverter x:Key="PageSizeNameConvert"/>
+    <DataTemplate x:Key="PrintersComboItemTemplate">
+      <DockPanel LastChildFill="True" Margin="0" Height="Auto" VerticalAlignment="Center">
+        <Grid DockPanel.Dock="Left" Margin="5,-3,6,0" VerticalAlignment="Center">
+          <Image x:Name="faxImage" Stretch="None" Source="pack://application:,,,/;component/Images\Fax.png" Visibility="Collapsed"/>
+          <Image x:Name="netImage" Stretch="None" Source="pack://application:,,,/;component/Images\NetPrinter.png" Visibility="Collapsed"/>
+          <Image x:Name="printerImage" Stretch="None" Source="pack://application:,,,/;component/Images\Printer.png" Visibility="Collapsed"/>
+          <Image x:Name="defaultImage" Stretch="None" Source="pack://application:,,,/;component/Images\PrinterDefaultIcon.png" Visibility="Collapsed" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,1,3"/>
+        </Grid>
+        <TextBlock Foreground="Black" DockPanel.Dock="Top" Text="{Binding Queue.Name}" TextTrimming="CharacterEllipsis"/>
+        <TextBlock Foreground="#6F6F6F" DockPanel.Dock="Top" Text="{Binding Queue.QueueStatus, Converter={StaticResource PrintStatusConvert}}" TextTrimming="CharacterEllipsis"/>
+      </DockPanel>
+      <DataTemplate.Triggers>
+        <DataTrigger Binding="{Binding Type}" Value="Local">
+          <Setter TargetName="printerImage" Property="Visibility" Value="Visible"/>
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Type}" Value="Network">
+          <Setter TargetName="netImage" Property="Visibility" Value="Visible"/>
+        </DataTrigger>
+        <DataTrigger Binding="{Binding Type}" Value="Fax">
+          <Setter TargetName="faxImage" Property="Visibility" Value="Visible"/>
+        </DataTrigger>
+        <DataTrigger Binding="{Binding IsDefault}" Value="True">
+          <Setter TargetName="defaultImage" Property="Visibility" Value="Visible"/>
+        </DataTrigger>
+      </DataTemplate.Triggers>
+    </DataTemplate>
+    <DataTemplate x:Key="PageSizeComboItemTemplate">
+      <DockPanel LastChildFill="True" Margin="0" Height="Auto">
+        <Grid DockPanel.Dock="Left" Margin="5,0,6,0" Width="32" Height="32" VerticalAlignment="Center">
+      		<Image x:Name="image" Stretch="None" Source="{Binding Image}" Visibility="Visible"/>
+      	</Grid>
+      	<TextBlock Foreground="Black" DockPanel.Dock="Top" Text="{Binding Name, Converter={StaticResource PageSizeNameConvert}}" TextTrimming="CharacterEllipsis"/>
+      	<TextBlock Foreground="#6F6F6F" DockPanel.Dock="Top" Text="{Binding Size}" TextTrimming="CharacterEllipsis"/>
+      </DockPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="PageMarginsDataTemplate">
+      <DockPanel LastChildFill="True" Margin="0" Height="45">
+        <Image Stretch="None" Source="{Binding Image}" DockPanel.Dock="Left" Margin="5,3,6,0" VerticalAlignment="Center"/>
+        <TextBlock Foreground="Black" DockPanel.Dock="Top" Text="{Binding Name}" Margin="0,1"/>
+        <StackPanel Margin="0,1,0,1" Orientation="Horizontal" d:LayoutOverrides="Height" DockPanel.Dock="Top">
+        	<TextBlock Foreground="#6F6F6F" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Margin="0" Text="{Binding Top, StringFormat=Top:    \{0\} cm}" Width="105"/>
+        	<TextBlock Foreground="#6F6F6F" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Margin="0" Text="{Binding Bottom, StringFormat=Bottom:    \{0\} cm}"/>
+        </StackPanel>
+        <StackPanel Margin="0,1,0,1" Orientation="Horizontal" d:LayoutOverrides="Height" DockPanel.Dock="Top">
+        	<TextBlock Foreground="#6F6F6F" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Margin="0" Text="{Binding Left, StringFormat=Left:    \{0\} cm}" Width="105"/>
+        	<TextBlock Foreground="#6F6F6F" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Margin="0" Text="{Binding Right, StringFormat=Right:       \{0\} cm}"/>
+        </StackPanel>
+      </DockPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="PageMarginsSelectedDataTemplate">
+      <DockPanel LastChildFill="True" Margin="0">
+        <Image Stretch="None" Source="{Binding Image}" DockPanel.Dock="Left" Margin="5,0,6,0" VerticalAlignment="Center"/>
+        <TextBlock Foreground="Black" DockPanel.Dock="Top" Text="{Binding Name}" Margin="0,2,0,1"/>
+        <StackPanel Margin="0,1,0,1" Orientation="Horizontal" d:LayoutOverrides="Height" DockPanel.Dock="Top">
+        	<TextBlock Foreground="#6F6F6F" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Margin="0" Text="{Binding Left, StringFormat=Left: \{0\} cm}" Width="70"/>
+        	<TextBlock Foreground="#6F6F6F" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Margin="0" Text="{Binding Right, StringFormat=Right: \{0\} cm}"/>
+        </StackPanel>
+      </DockPanel>
+    </DataTemplate>
+    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource BackstageComboBoxStyle}"/>
+  </UserControl.Resources>
+  <DockPanel LastChildFill="True">
+    <Border Width="251" DockPanel.Dock="Left" BorderThickness="0,0,1,0" BorderBrush="#D7D7D7">
+      <DockPanel LastChildFill="True" Margin="20,20,0,0">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+          <Fluent:Button Style="{DynamicResource ButtonBackstageStyle}" LargeIcon="pack://application:,,,/;component/Images\Print.png" Click="OnPrintClick">Print</Fluent:Button>
+          <StackPanel Margin="20,0,10,0">
+            <TextBlock FontSize="14" FontWeight="Bold">Print</TextBlock>
+            <Path Data="M0,0 L1,0" Stroke="#C7C8C9"
+                          StrokeDashArray="2 2" Height="1" Width="Auto" StrokeThickness="1" HorizontalAlignment="Stretch" Stretch="Fill" Margin="0,7,0,7"/>
+            <Fluent:Spinner Text="Copies" Value="1" Minimum="1" InputWidth="63" Margin="-25,0,0,0" Format="0" x:Name="copyCountSpinner"/>
+          </StackPanel>
+        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0,10,0,1">
+          <StackPanel Margin="0,0,10,0">
+            <Grid>
+          		<TextBlock FontSize="14" FontWeight="Bold" d:LayoutOverrides="Width, Height"><Run Text="Printer"/></TextBlock>
+              <Image HorizontalAlignment="Right" Width="16" Height="16" VerticalAlignment="Bottom" Source="pack://application:,,,/;component/Images/Information.png">
+                <Image.ToolTip>
+                  <Fluent:ScreenTip Opened="OnPrinterScreenTipOpened" Title="Printer Status" Placement="MousePoint"/>
+                </Image.ToolTip>
+              </Image>
+          	</Grid>
+            <Path Data="M0,0 L1,0" Stroke="#C7C8C9"
+                          StrokeDashArray="2 2" Height="1" Width="Auto" StrokeThickness="1" HorizontalAlignment="Stretch" Stretch="Fill" Margin="0,7,0,7"/>
+            <ComboBox Width="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden" ItemTemplate="{StaticResource PrintersComboItemTemplate}" x:Name="printersComboBox" SelectionChanged="OnPrinterChanged" Height="42" Margin="0">
+              <ComboBox.ToolTip>
+                <Fluent:ScreenTip Opened="OnPrinterScreenTipOpened" Title="Printer Status" Placement="MousePoint"/>
+              </ComboBox.ToolTip>
+            </ComboBox>
+            <Button Style="{DynamicResource HyperlinkButtonStyle}" HorizontalAlignment="Right" Margin="0,5,0,7" Click="OnPrinterPropertiesClick" Content="Printer properties"/>
+            <TextBlock FontSize="14" FontWeight="Bold"><Run Text="Settings"/></TextBlock>
+            <Path Data="M0,0 L1,0" Stroke="#C7C8C9"
+                          StrokeDashArray="2 2" Height="1" Width="Auto" StrokeThickness="1" HorizontalAlignment="Stretch" Stretch="Fill" Margin="0,7,0,7"/>
+            <ComboBox SelectedIndex="0" Width="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="0,1,0,1" Height="42" x:Name="orientationComboBox" SelectionChanged="OnPageSizeChanged">
+              <ComboBoxItem>
+                <DockPanel LastChildFill="True" Margin="0,1,4,0" Height="35">
+                  <Image Stretch="None" Source="pack://application:,,,/;component/Images\PortraitOrientation.png" DockPanel.Dock="Left" Margin="5,-3,6,0"/>
+                  <TextBlock Foreground="Black" DockPanel.Dock="Top" Margin="0,10,0,0"><Run Text="Portrait Orientation"/></TextBlock>
+                </DockPanel>
+              </ComboBoxItem>
+              <ComboBoxItem>
+                <DockPanel LastChildFill="True" Margin="0,1,4,0" Height="35">
+                  <Image Stretch="None" Source="pack://application:,,,/;component/Images\LandscapeOrientation.png" DockPanel.Dock="Left" Margin="5,-3,6,0"/>
+                  <TextBlock Foreground="Black" DockPanel.Dock="Top" Margin="0,10,0,0"><Run Text="Landscape Orientation"/></TextBlock>
+                </DockPanel>
+              </ComboBoxItem>
+            </ComboBox>
+            <ComboBox Width="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,1,0,1" ItemTemplate="{StaticResource PageSizeComboItemTemplate}" x:Name="pageSizesComboBox" SelectionChanged="OnPageSizeChanged" Height="42">            
+            </ComboBox>
+            <ComboBox x:Name="pageMarginsComboBox" SelectedIndex="1" Width="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden" Margin="0,1,0,1" Height="42" SelectionChanged="OnPageMarginchanged">             
+            </ComboBox>
+            <Button Style="{DynamicResource HyperlinkButtonStyle}" HorizontalAlignment="Right" Margin="0,5,0,7" Content="Page Setup" Click="OnPageSetupClick"/>
+          </StackPanel>
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+    <Grid Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+      <NuGenBioChem:PagePreview PageWidth="250" PageHeight="352.5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="printPreviewPage">
+        <NuGenBioChem:PagePreview.PageContent>
+          <Visualization:Visualizer/>
+        </NuGenBioChem:PagePreview.PageContent>
+      </NuGenBioChem:PagePreview>
+    </Grid>
+  </DockPanel>
+</UserControl>

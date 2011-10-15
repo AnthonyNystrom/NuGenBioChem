@@ -1,0 +1,19 @@
+﻿<Window x:Class="NuGenBioChem.CartoonMaterialsEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:NuGenBioChem="clr-namespace:NuGenBioChem" 
+        Title="Advanced Cartoon Materials" 
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" 
+        WindowStyle="ToolWindow" ShowInTaskbar="False">
+    <StackPanel Margin="4">
+        <GroupBox Header="Helices Material" Margin="2">
+            <NuGenBioChem:MaterialControl DataContext="{Binding HelixMaterial}" />
+        </GroupBox>
+        <GroupBox Header="Sheets Material" Margin="2">
+            <NuGenBioChem:MaterialControl DataContext="{Binding SheetMaterial}"/>
+        </GroupBox>
+        <GroupBox Header="Turns Material" Margin="2">
+            <NuGenBioChem:MaterialControl DataContext="{Binding TurnMaterial}" />
+        </GroupBox>
+    </StackPanel>
+</Window>

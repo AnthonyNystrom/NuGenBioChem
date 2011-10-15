@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="NuGenBioChem.MaterialControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:NuGenBioChem.Controls"
+             xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" xmlns:Converters="clr-namespace:NuGenBioChem.Converters">
+  <UserControl.Resources>
+    <Converters:PercentageConverter x:Key="percentageConverter" />
+    <Converters:SolidColorBrushConverter x:Key="solidColorBrushConverter"/>
+  </UserControl.Resources>
+
+  <WrapPanel Orientation="Vertical" Height="66">
+    <Controls:ColorPickerButton x:Name="diffuseColorPicker" Size="Large" Text="Diffuse" SelectedBrush="{Binding Diffuse, Mode=TwoWay, Converter={StaticResource ResourceKey=solidColorBrushConverter}}" />
+    <Controls:ColorPickerButton x:Name="ambientColorPicker" Size="Middle" Text="Ambient" SelectedBrush="{Binding Ambient, Mode=TwoWay, Converter={StaticResource ResourceKey=solidColorBrushConverter}}" />
+    <Controls:ColorPickerButton x:Name="specularColorPicker" Size="Middle" Text="Specular" SelectedBrush="{Binding Specular, Mode=TwoWay, Converter={StaticResource ResourceKey=solidColorBrushConverter}}" />
+    <Controls:ColorPickerButton x:Name="emissiveColorPicker" Size="Middle" Text="Emissive" SelectedBrush="{Binding Emissive, Mode=TwoWay, Converter={StaticResource ResourceKey=solidColorBrushConverter}}" />
+    <Separator/>
+    <Fluent:Spinner Increment="5" Format="0 \%" Maximum="100" InputWidth="60" Text="Glossiness" Value="{Binding Glossiness, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+    <Fluent:Spinner Increment="5" Format="0 \%" Maximum="100" InputWidth="60" Text="Specular Power" Value="{Binding SpecularPower, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+    <Fluent:Spinner Increment="5" Format="0 \%" Maximum="100" InputWidth="60" Text="Reflection Level" Value="{Binding ReflectionLevel, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+    <Fluent:Spinner Increment="5" Format="0 \%" Maximum="100" InputWidth="60" Text="Bump Level" Value="{Binding BumpLevel, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+    <Fluent:Spinner Increment="5" Format="0 \%" Maximum="100" InputWidth="60" Text="Emissive Level" Value="{Binding EmissiveLevel, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+  </WrapPanel>
+</UserControl>

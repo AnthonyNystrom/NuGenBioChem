@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7E7EC080-4E5F-48E5-84B7-4FD1A83780DB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NuGenBioChem</RootNamespace>
+    <AssemblyName>NuGenBioChem</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20408.0</ExpressionBlendVersion>
+    <SccProjectName>&lt;Project Location In Database&gt;</SccProjectName>
+    <SccLocalPath>&lt;Local Binding Root of Project&gt;</SccLocalPath>
+    <SccAuxPath>&lt;Source Control Database&gt;</SccAuxPath>
+    <SccProvider>Mercurial Source Control Package</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Binaries\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\Binaries\NuGenBioChem.xml</DocumentationFile>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Binaries\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\Binaries\NuGenBioChem.xml</DocumentationFile>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Properties\NuGenVisChemStrongName.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon\ApplicationIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fluent, Version=1.2.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Binaries\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="Application.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="CartoonMaterialsEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ColorSchemePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ColorSchemeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Backstage\HelpTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Backstage\InfoTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Backstage\PageSetupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Backstage\PrintTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Backstage\PublishTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Backstage\RecentTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PagePreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PeriodicalTable.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BondMaterialEditorWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\PrintingStatusBarContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ResidueGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EnterNameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaterialControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\BackstageComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ColorPickerButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ColorsSilver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\HyperlinkButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\RecentItemsListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\RibbonStatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Slider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\UndoButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\UndoItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Visualization\Visualizer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Application.xaml.cs">
+      <DependentUpon>Application.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CartoonMaterialsEditorWindow.xaml.cs">
+      <DependentUpon>CartoonMaterialsEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ColorSchemePreview.xaml.cs">
+      <DependentUpon>ColorSchemePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ColorSchemeWindow.xaml.cs">
+      <DependentUpon>ColorSchemeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Backstage\HelpTab.xaml.cs">
+      <DependentUpon>HelpTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Backstage\InfoTab.xaml.cs">
+      <DependentUpon>InfoTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Backstage\PageSetupWindow.xaml.cs">
+      <DependentUpon>PageSetupWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Backstage\PrintTab.xaml.cs">
+      <DependentUpon>PrintTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Backstage\PublishTab.xaml.cs">
+      <DependentUpon>PublishTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Backstage\RecentTab.xaml.cs">
+      <DependentUpon>RecentTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorPickerButton.cs" />
+    <Compile Include="Controls\PagePreview.xaml.cs">
+      <DependentUpon>PagePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PeriodicalTable.xaml.cs">
+      <DependentUpon>PeriodicalTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PrintingStatusBarContent.xaml.cs">
+      <DependentUpon>PrintingStatusBarContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ResidueGrid.xaml.cs">
+      <DependentUpon>ResidueGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UndoButton.cs" />
+    <Compile Include="Controls\UndoItem.cs" />
+    <Compile Include="Converters\StylePreviewConverter.cs" />
+    <Compile Include="Converters\PercentageConverter.cs" />
+    <Compile Include="Controls\RibbonStatusBarItem.cs" />
+    <Compile Include="Controls\RibbonStatusBarMenuItem.cs" />
+    <Compile Include="Converters\MoleculePreviewConverter.cs" />
+    <Compile Include="Controls\RibbonStatusBar.cs" />
+    <Compile Include="Converters\SolidColorBrushConverter.cs" />
+    <Compile Include="BondMaterialEditorWindow.xaml.cs">
+      <DependentUpon>BondMaterialEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Atom.cs" />
+    <Compile Include="Data\AtomCollection.cs" />
+    <Compile Include="Data\Bond.cs" />
+    <Compile Include="Data\BondCollection.cs" />
+    <Compile Include="Data\Chain.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\ChainCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\ColorScheme.cs" />
+    <Compile Include="Data\AtomRadiusStyle.cs" />
+    <Compile Include="Data\ColorStyle.cs" />
+    <Compile Include="Data\Element.cs" />
+    <Compile Include="Data\GeometryStyle.cs" />
+    <Compile Include="Data\Importers\IFileImporter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Importers\Molefile.cs" />
+    <Compile Include="Data\Importers\ProteinDataBankFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Material.cs" />
+    <Compile Include="Data\Molecule.cs" />
+    <Compile Include="Data\MoleculeCollection.cs" />
+    <Compile Include="Data\Commands\RelayCommand.cs" />
+    <Compile Include="Data\RecentItems.cs" />
+    <Compile Include="Data\Residue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\ResidueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\SecondaryStructure.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\SecondaryStructureCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\SecondaryStructureType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Settings.cs" />
+    <Compile Include="Data\Storage.cs" />
+    <Compile Include="Data\Substance.cs" />
+    <Compile Include="Data\Transactions\Transactable.cs" />
+    <Compile Include="Data\Transactions\TransactableCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Transactions\Transaction.cs" />
+    <Compile Include="Data\Transactions\TransactionContext.cs" />
+    <Compile Include="Data\Style.cs" />
+    <Compile Include="EnterNameWindow.xaml.cs">
+      <DependentUpon>EnterNameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialControl.xaml.cs">
+      <DependentUpon>MaterialControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SingleInstance.cs" />
+    <Compile Include="Visualization\Atom.cs" />
+    <Compile Include="Visualization\Bond.cs" />
+    <Compile Include="Visualization\Chain.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualization\Mathematics\Camera.cs" />
+    <Compile Include="Visualization\Mathematics\Interpolation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualization\Mathematics\Rect3D.cs" />
+    <Compile Include="Visualization\Mathematics\Viewport3D.cs" />
+    <Compile Include="Visualization\Molecule.cs" />
+    <Compile Include="Visualization\Mathematics\Vector3D.cs" />
+    <Compile Include="Visualization\Mathematics\Matrix3D.cs" />
+    <Compile Include="Visualization\Mathematics\MeshGeometry3D.cs" />
+    <Compile Include="Visualization\Primitives\ExtrudedSurface.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualization\Primitives\Polygon.cs" />
+    <Compile Include="Visualization\Primitives\Cylinder.cs" />
+    <Compile Include="Visualization\Primitives\Primitive.cs" />
+    <Compile Include="Visualization\Primitives\Sheet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualization\Primitives\Sphere.cs" />
+    <Compile Include="Visualization\Primitives\Tessellator.cs" />
+    <Compile Include="Visualization\Primitives\Tube.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualization\Residue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualization\Ribbon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualization\Visualizer.xaml.cs">
+      <DependentUpon>Visualizer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window.xaml.cs">
+      <DependentUpon>Window.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Data\Importers\Specifications\Molfile.pdf" />
+    <None Include="Properties\NuGenVisChemStrongName.snk" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="Resources\Elements\Elements.csv" />
+    <None Include="Resources\Elements\Elements.xlsx" />
+    <None Include="Samples\Pdb\CYT.ent" />
+    <None Include="Samples\Pdb\D2S.ent" />
+    <None Include="Samples\Pdb\PPI.ent" />
+    <None Include="Samples\Pdb\QM2.ent" />
+    <None Include="Samples\Pdb\TMV.ent" />
+    <None Include="Samples\Pdb\TNA.ent" />
+    <Resource Include="Resources\Molecules\Preview.mol" />
+    <None Include="Samples\Mol\AlphaHelix.mol">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Mol\Aspirina.mol">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Mol\Benzene.mol">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Mol\Complex.mol">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Mol\CyclicPeptide.mol">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Mol\Methyl.mol">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Samples\Mol\Morphine.mol">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\ApplicationIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Dummy.png" />
+    <Resource Include="Images\DummyLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Documentation\Todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Exit.png" />
+    <Resource Include="Images\Close.png" />
+    <Resource Include="Images\SaveAs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DefaultPrinter.png" />
+    <Resource Include="Images\Printer.png" />
+    <Resource Include="Images\NetPrinter.png" />
+    <Resource Include="Images\Fax.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LandscapeOrientation.png" />
+    <Resource Include="Images\PortraitOrientation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\A3.png" />
+    <Resource Include="Images\A4.png" />
+    <Resource Include="Images\A5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MirroredMargins.png" />
+    <Resource Include="Images\NormalMargins.png" />
+    <Resource Include="Images\ModerateMargins.png" />
+    <Resource Include="Images\NarrowMargins.png" />
+    <Resource Include="Images\WideMargins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SaveAsLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Unpin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RecentFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RecentPlace.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clouds.png" />
+    <Resource Include="Images\Noise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Triangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ColorSchemes.png" />
+    <Resource Include="Images\EditColorScheme.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ColorScheme.png" />
+    <Resource Include="Images\ColorSchemesLarge.png" />
+    <Resource Include="Images\EditColorSchemeLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NavigateTo.png" />
+    <Resource Include="Images\NavigateToLarge.png" />
+    <Resource Include="Images\ShowAll.png" />
+    <Resource Include="Images\ShowAllLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LookAtLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LookAt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PrinterDefaultIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Redo.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\CancelPrint.png" />
+    <Resource Include="Images\Information.png" />
+    <Resource Include="Resources\Molecules\Preview.pdb" />
+    <Resource Include="Images\ExclusiveMargins.png" />
+    <Resource Include="Images\GeometryStyles.png" />
+    <Resource Include="Images\GeometryStylesLarge.png" />
+    <Resource Include="Images\ColorStyles.png" />
+    <Resource Include="Images\ColorStylesLarge.png" />
+    <Resource Include="Images\AdvancedMaterials.png" />
+    <Resource Include="Images\AdvancedMaterialsLarge.png" />
+    <Resource Include="Images\Edit.png" />
+    <Resource Include="Images\CreateImageLarge.png" />
+    <Resource Include="Images\SaveImageLarge.png" />
+    <Resource Include="Images\Styles.png" />
+    <Resource Include="Images\StylesLarge.png" />
+    <Resource Include="Images\BallAndStick.png" />
+    <Resource Include="Images\Helices.png" />
+    <Resource Include="Images\Sheets.png" />
+    <Resource Include="Images\Turns.png" />
+    <Resource Include="Images\Isosurface.png" />
+    <Resource Include="Images\Atoms.png" />
+    <Resource Include="Images\Bonds.png" />
+    <Resource Include="Images\Cartoon.png" />
+    <Content Include="Samples\Pdb\1AFB.pdb" />
+    <Content Include="Samples\Pdb\1atp.pdb" />
+    <Content Include="Samples\Pdb\1CFB.pdb" />
+    <Content Include="Samples\Pdb\1crn.pdb" />
+    <Content Include="Samples\Pdb\2BBA.pdb" />
+    <Content Include="Samples\Pdb\nsP10.pdb" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

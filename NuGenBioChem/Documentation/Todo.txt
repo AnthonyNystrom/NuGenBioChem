@@ -1,0 +1,41 @@
+﻿Undo / redo:
++ Undo Limit
+
+Appearance Tab
++ Helix, Sheet & Turn's materials
+
+- ScreenTips
++ KeyTips
++ Ribbon Group's Reducing
++ Resedues Table (!)
++ Revive Shadow (!)
++ Add proteints to shadow (waiting...)
++ Color Style Collection
+- Save & restore position of tool windows
+  (the issue is what position must be saved when two or more main windows are open)
++ Preview with ribbonds
++ Edit color scheme in tool window
+
+Bugs:
++ Show All does not work when open second file
++ Preview of material in color sheme editor is out of sync when a selected
+  material is changing somewhere except of tuners in the window
++ Show all in Print Tab/Publish Tab
+
+Icons
+- For Collapsed Groups (!)
+
+Optimizations
+* When color == transparent remeve visual model
++ Add "Loading..." control while opening process
+* Optimize visuals atoms & bonds (their count is issue!)
+
+Suspended:
+- Take screenshot
+- Merge the same transactions (word does not)
+- On/Off shadow 
+- Background color
+- Brightness
+- Saturation
+- Contrast
+

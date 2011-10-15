@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="NuGenBioChem.Controls.Backstage.PublishTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" xmlns:NuGenBioChem="clr-namespace:NuGenBioChem" xmlns:Visualization="clr-namespace:NuGenBioChem.Visualization" mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+  <Fluent:BackstageTabControl Margin="10,10,10,10">
+    <Fluent:GroupSeparatorMenuItem Text="File Types"/>
+    <TabItem IsSelected="True">
+      <TabItem.Header>
+        <DockPanel LastChildFill="True" Margin="0,4,0,0">
+          <Image Stretch="None" Source="pack://application:,,,/;component/Images\SaveAsLarge.png" DockPanel.Dock="Left" Margin="5,-2,6,0"/>
+          <TextBlock Foreground="Black" Margin="0,6,0,0">Change File Type</TextBlock>
+        </DockPanel>
+      </TabItem.Header>
+      <ScrollViewer Margin="10,10,10,1" VerticalScrollBarVisibility="Auto" Background="#99FFFFFF">
+        <StackPanel>
+          <TextBlock FontSize="14" FontWeight="Bold">Change File Type</TextBlock>
+          <Path Data="M0,0 L1,0" Stroke="#C7C8C9"
+                      StrokeDashArray="2 2" Height="1" Width="Auto" StrokeThickness="1" HorizontalAlignment="Stretch" Stretch="Fill" Margin="0,7,0,7"/>
+          <Fluent:Gallery Margin="5" VerticalScrollBarVisibility="Hidden" GroupBy="Tag" ItemWidth="250">
+            <Fluent:GalleryItem Tag="Group1">
+              <DockPanel LastChildFill="True" Margin="0,2,4,0" Height="35">
+                <Image Stretch="None" Source="pack://application:,,,/;component/Images\SaveAsLarge.png" DockPanel.Dock="Left" Margin="5,-3,6,0"/>
+                <TextBlock Foreground="Black" DockPanel.Dock="Top">Some Format (*.format)</TextBlock>
+                <TextBlock Foreground="#6F6F6F" DockPanel.Dock="Top" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">Uses Some format</TextBlock>
+              </DockPanel>
+            </Fluent:GalleryItem>
+            <Fluent:GalleryItem Tag="Group1">
+              <DockPanel LastChildFill="True" Margin="0,2,4,0" Height="35">
+                <Image Stretch="None" Source="pack://application:,,,/;component/Images\SaveAsLarge.png" DockPanel.Dock="Left" Margin="5,-3,6,0"/>
+                <TextBlock Foreground="Black" DockPanel.Dock="Top">Some Format (*.format)</TextBlock>
+                <TextBlock Foreground="#6F6F6F" DockPanel.Dock="Top" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">Uses Some format</TextBlock>
+              </DockPanel>
+            </Fluent:GalleryItem>
+            <Fluent:GalleryItem Tag="Group1">
+              <DockPanel LastChildFill="True" Margin="0,2,4,0" Height="35">
+                <Image Stretch="None" Source="pack://application:,,,/;component/Images\SaveAsLarge.png" DockPanel.Dock="Left" Margin="5,-3,6,0"/>
+                <TextBlock Foreground="Black" DockPanel.Dock="Top">Some Format (*.format)</TextBlock>
+                <TextBlock Foreground="#6F6F6F" DockPanel.Dock="Top" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">Uses Some format</TextBlock>
+              </DockPanel>
+            </Fluent:GalleryItem>
+            <Fluent:GalleryItem Tag="Group2">
+              <DockPanel LastChildFill="True" Margin="0,2,4,0" Height="35">
+                <Image Stretch="None" Source="pack://application:,,,/;component/Images\SaveAsLarge.png" DockPanel.Dock="Left" Margin="5,-3,6,0"/>
+                <TextBlock Foreground="Black" DockPanel.Dock="Top">Some Format (*.format)</TextBlock>
+                <TextBlock Foreground="#6F6F6F" DockPanel.Dock="Top" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">Uses Some format</TextBlock>
+              </DockPanel>
+            </Fluent:GalleryItem>
+            <Fluent:GalleryItem Tag="Group2">
+              <DockPanel LastChildFill="True" Margin="0,2,4,0" Height="35">
+                <Image Stretch="None" Source="pack://application:,,,/;component/Images\SaveAsLarge.png" DockPanel.Dock="Left" Margin="5,-3,6,0"/>
+                <TextBlock Foreground="Black" DockPanel.Dock="Top">Some Format (*.format)</TextBlock>
+                <TextBlock Foreground="#6F6F6F" DockPanel.Dock="Top" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis">Uses Some format</TextBlock>
+              </DockPanel>
+            </Fluent:GalleryItem>
+          </Fluent:Gallery>
+          <Fluent:Button Style="{DynamicResource ButtonBackstageStyle}" HorizontalAlignment="Left" LargeIcon="pack://application:,,,/;component/Images\SaveAsLarge.png">Save As</Fluent:Button>
+        </StackPanel>
+      </ScrollViewer>
+    </TabItem>
+    <TabItem IsSelected="True">
+      <TabItem.Header>
+        <DockPanel LastChildFill="True" Margin="0,4,0,0">
+          <Image Stretch="None" Source="pack://application:,,,/;component/Images\CreateImageLarge.png" DockPanel.Dock="Left" Margin="5,-2,6,0"/>
+          <TextBlock Foreground="Black" Margin="0,6,0,0">Save as Image</TextBlock>
+        </DockPanel>
+      </TabItem.Header>
+      <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Fluent:Button Click="OnSaveImageClick" Style="{DynamicResource ButtonBackstageStyle}" LargeIcon="pack://application:,,,/;component/Images\SaveImageLarge.png" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">Save Image</Fluent:Button>
+        <NuGenBioChem:PagePreview Grid.Row="1" x:Name="previewPage" PageWidth="{Binding Value, ElementName=widthSpinner}" PageHeight="{Binding Value, ElementName=heightSpinner}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+          <NuGenBioChem:PagePreview.PageContent>
+            <Visualization:Visualizer/>
+          </NuGenBioChem:PagePreview.PageContent>
+        </NuGenBioChem:PagePreview>
+        <Fluent:Spinner Text="Width: " InputWidth="75" Format="0 px" Minimum="1" Maximum="10000" Value="250" x:Name="widthSpinner" Grid.Row="0" Margin="80,-23,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Fluent:Spinner Text="Height:" InputWidth="75" Format="0 px" Minimum="1" Maximum="10000" Value="350" x:Name="heightSpinner" Grid.Row="0" Margin="80,23,0,0" HorizontalAlignment="left" VerticalAlignment="Center"/>
+      </Grid>
+    </TabItem>
+  </Fluent:BackstageTabControl>
+</UserControl>

@@ -1,0 +1,8 @@
+﻿<UserControl x:Class="NuGenBioChem.ColorSchemePreview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             >
+    <StackPanel x:Name="panel" Orientation="Horizontal">
+        
+    </StackPanel>
+</UserControl>

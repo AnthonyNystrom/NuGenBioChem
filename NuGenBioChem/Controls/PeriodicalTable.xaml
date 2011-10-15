@@ -1,0 +1,238 @@
+﻿<UserControl
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:NuGenBioChem="clr-namespace:NuGenBioChem" xmlns:NuGenBioChem_Controls="clr-namespace:NuGenBioChem.Controls" xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" xmlns:Converters="clr-namespace:NuGenBioChem.Converters" xmlns:Visualization="clr-namespace:NuGenBioChem.Visualization" mc:Ignorable="d"
+  x:Class="NuGenBioChem.Controls.PeriodicalTable"
+  x:Name="UserControl"
+  UseLayoutRounding="True" 
+  d:DesignWidth="640" d:DesignHeight="480" Width="820" Height="480">
+  <UserControl.Resources>    		
+    <NuGenBioChem_Controls:FontColorConverter x:Key="FontColorConvert"/>
+    <Converters:PercentageConverter x:Key="percentageConverter" />
+    <Style x:Key="PeriodicalListBoxStyle" TargetType="{x:Type ListBox}">
+      <Setter Property="Template" Value="{DynamicResource PeriodicalListBoxControlTemplate}"/>
+      <Setter Property="ItemContainerStyle">
+        <Setter.Value>
+          <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Grid.Row" Value="{Binding Item1.Row}"/>
+            <Setter Property="Grid.Column" Value="{Binding Item1.Column}"/>
+            <Setter Property="Background">
+              <Setter.Value>
+                <SolidColorBrush Color="{Binding Item2.Diffuse}"/>
+              </Setter.Value>
+            </Setter>
+            <Setter Property="Template" Value="{DynamicResource PeriodicalListBoxItemControlTemplate}"/>
+          </Style>
+        </Setter.Value>
+      </Setter>
+      <Setter Property="ItemTemplate">
+        <Setter.Value>
+          <DataTemplate>
+            <Grid>
+              <TextBlock Foreground="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}, Converter={StaticResource FontColorConvert}}" FontSize="12" Text="{Binding Item1.Symbol}" HorizontalAlignment="Right" Margin="3" TextWrapping="NoWrap" FontWeight="Bold"/>
+              <TextBlock Foreground="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}, Converter={StaticResource FontColorConvert}}" FontSize="6" Text="{Binding Item1.Name}" HorizontalAlignment="Right" Margin="3,27,3,3" TextWrapping="NoWrap" />
+              <TextBlock Foreground="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}, Converter={StaticResource FontColorConvert}}" FontSize="6" Text="{Binding Item1.Number}" HorizontalAlignment="Left" Margin="1,1,3,3" TextWrapping="NoWrap" />
+            </Grid>
+          </DataTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <ControlTemplate x:Key="PeriodicalListBoxItemControlTemplate" TargetType="{x:Type ListBoxItem}">
+      <Grid Background="#00000000">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="0" d:LayoutOverrides="Width, Height" Background="{TemplateBinding Background}">
+          <ContentPresenter Margin="2"/>
+        </Border>
+        <Border x:Name="hoverBorder" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" BorderThickness="1" Margin="0" Visibility="Collapsed">
+          <Border BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" BorderThickness="1">
+            <Border BorderBrush="{DynamicResource ButtonHoverInnerBackgroundBrush}" BorderThickness="2"/>
+          </Border>
+        </Border>
+      </Grid>
+      <ControlTemplate.Triggers>
+        <Trigger Property="Selector.IsSelected" Value="True">
+          <Setter Property="Visibility" TargetName="hoverBorder" Value="Visible"/>
+        </Trigger>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Setter Property="Visibility" TargetName="hoverBorder" Value="Visible"/>
+          <Setter Property="Opacity" TargetName="hoverBorder" Value="0.75"/>
+        </Trigger>
+      </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="PeriodicalListBoxControlTemplate" TargetType="{x:Type ListBox}">
+      <Grid>
+        <Grid x:Name="rowsGrid" HorizontalAlignment="Left" Width="20" Margin="0,20,0,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+          </Grid.RowDefinitions>
+          <Border Grid.Row="0" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>					
+          <Border Grid.Row="1" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>					
+          <Border Grid.Row="2" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>					
+          <Border Grid.Row="3" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>					
+          <Border Grid.Row="4" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>					
+          <Border Grid.Row="5" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>					
+          <Border Grid.Row="6" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>					
+    
+      
+        </Grid>
+        
+        <Grid x:Name="columsGrid" VerticalAlignment="Top" Height="20" Margin="20,0,0,0">
+
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+          </Grid.ColumnDefinitions>
+          <Border Grid.Column="0" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="1" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="2" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="3" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="4" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="5" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="6" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="7" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="8" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="8" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="9" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="10" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="11" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="11" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="12" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="13" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="13" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="14" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="15" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="16" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="17" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+          <Border Grid.Column="17" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="-1,0,0,0" Background="{DynamicResource StatusBarInnerBackgroundBrush}">
+            <TextBlock TextWrapping="Wrap" Text="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+        </Grid>
+        
+        <Grid x:Name="contentGrid" IsItemsHost="True" Margin="20,20,0,0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+            <ColumnDefinition Width="0.055*"/>
+          </Grid.ColumnDefinitions>
+        </Grid>
+        <Border Grid.Row="0" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" BorderThickness="1" Margin="0" Background="{DynamicResource StatusBarInnerBackgroundBrush}" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20"/>
+      </Grid>
+    </ControlTemplate>
+  </UserControl.Resources>
+
+  <Grid x:Name="LayoutRoot" Margin="1,1,1,1">
+    <ListBox x:Name="elementsListBox" Margin="0" Style="{DynamicResource PeriodicalListBoxStyle}" SelectionMode="Extended" SelectionChanged="OnSelectionChanged" PreviewMouseLeftButtonDown="OnPreviewMouseLeftDown" PreviewMouseLeftButtonUp="OnPreviewMouseLeftUp" MouseMove="OnMouseMove"/>
+    <Grid x:Name="materialGrid" Margin="135,28,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" IsEnabled="False">
+      <StackPanel HorizontalAlignment="Left" Width="80"  DataContext="{Binding ElementName=UserControl, Mode=OneWay}" d:LayoutOverrides="Height">
+        <NuGenBioChem_Controls:ColorPickerButton x:Name="ambientColorPicker" Size="Middle" Text="Ambient" SelectedBrush="{Binding Ambient, Mode=TwoWay}" />				
+        <NuGenBioChem_Controls:ColorPickerButton x:Name="diffuseColorPicker" Size="Middle" Text="Diffuse" SelectedBrush="{Binding Diffuse, Mode=TwoWay}" />								
+        <NuGenBioChem_Controls:ColorPickerButton x:Name="specularColorPicker" Size="Middle" Text="Specular" SelectedBrush="{Binding Specular, Mode=TwoWay}" />
+        <NuGenBioChem_Controls:ColorPickerButton x:Name="emissiveColorPicker" Size="Middle" Text="Emissive" SelectedBrush="{Binding Emissive, Mode=TwoWay}" />
+      </StackPanel>
+      <StackPanel HorizontalAlignment="Left" Margin="80,1,0,0" Width="210" DataContext="{Binding ElementName=UserControl, Mode=OneWay}" d:LayoutOverrides="Height">
+        <Fluent:Spinner Maximum="100" Format="0 \%" Increment="1" Text="Glossiness         " InputWidth="100" Value="{Binding Glossiness, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+        <Fluent:Spinner Maximum="100" Format="0 \%" InputWidth="100" Text="Specular Power " Margin="-1,1,0,0" Value="{Binding SpecularPower, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+        <Fluent:Spinner Increment="1" Format="0 \%" Maximum="100" InputWidth="100" Text="Reflection Level " Margin="-2,1,0,0" Value="{Binding ReflectionLevel, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+        <Fluent:Spinner Increment="1" Format="0 \%" Maximum="100" InputWidth="100" Text="Bump Level        " Margin="-2,1,0,0" Value="{Binding BumpLevel, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+        <Fluent:Spinner Increment="1" Format="0 \%" Maximum="100" InputWidth="100" Text="Emissive Level    " Margin="-2,1,0,0" Value="{Binding EmissiveLevel, Mode=TwoWay, Converter={StaticResource percentageConverter}}"/>
+      </StackPanel>
+    </Grid>		
+    <Visualization:Visualizer x:Name="visualizer" Height="126" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="438,25,0,0"></Visualization:Visualizer>
+  </Grid>
+</UserControl>

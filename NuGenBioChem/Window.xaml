@@ -1,0 +1,335 @@
+﻿<Fluent:RibbonWindow x:Class="NuGenBioChem.Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Visualization="clr-namespace:NuGenBioChem.Visualization"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" 
+        xmlns:Controls="clr-namespace:NuGenBioChem.Controls" 
+        xmlns:Converters="clr-namespace:NuGenBioChem.Converters" 
+        xmlns:Diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        xmlns:NuGenBioChem="clr-namespace:NuGenBioChem" xmlns:Data="clr-namespace:NuGenBioChem.Data" xmlns:Backstage="clr-namespace:NuGenBioChem.Controls.Backstage" Title="NuGenBioChem [Technical Preview, July 2010]" Height="500" Width="750"
+        ResizeMode="CanResizeWithGrip" x:Name="window" Activated="OnWindowActivated" Deactivated="OnWindowDeactivated"
+        Drop="OnFileDrop" AllowDrop="True">
+  <Fluent:RibbonWindow.Resources>
+        
+        <!--Conveters-->
+        <Converters:MoleculePreviewConverter x:Key="moleculePreviewConverter" />
+        <Converters:StylePreviewConverter x:Key="stylePreviewConverter" />
+        <Converters:PercentageConverter x:Key="percentageConverter" />
+        <Converters:SolidColorBrushConverter x:Key="solidColorBrushConverter"/>
+
+  </Fluent:RibbonWindow.Resources>
+  <DockPanel LastChildFill="True">
+        <Fluent:Ribbon x:Name="ribbon" DockPanel.Dock="Top">
+
+            <!--Quick Access Toolbar Items-->
+            <Fluent:Ribbon.QuickAccessItems>
+                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=buttonOpen}" IsChecked="True"/>
+                <Fluent:QuickAccessMenuItem IsChecked="True" Target="{Binding ElementName=undoButton}" Text="Undo" />
+                <Fluent:QuickAccessMenuItem IsChecked="True" Target="{Binding ElementName=redoButton}" Text="Redo"/>
+            </Fluent:Ribbon.QuickAccessItems>
+
+            <Fluent:Ribbon.BackstageItems>
+                <Fluent:Button Icon="Images\SaveAs.png" Fluent:KeyTip.Keys="A">Save As</Fluent:Button>
+                <Fluent:Button Icon="Images\Open.png" Click="OnOpenClick" x:Name="buttonOpen" Fluent:KeyTip.Keys="O">Open</Fluent:Button>
+                <Fluent:Button Icon="Images\Close.png" Fluent:KeyTip.Keys="C">Close</Fluent:Button>
+                <Fluent:BackstageTabItem Header="Info" Fluent:KeyTip.Keys="E">
+                  <Backstage:InfoTab />
+                </Fluent:BackstageTabItem>
+                <Fluent:BackstageTabItem Header="Recent" IsSelected="True" Fluent:KeyTip.Keys="R">
+                  <Backstage:RecentTab/>
+                </Fluent:BackstageTabItem>
+                <Fluent:BackstageTabItem Header="Print" Fluent:KeyTip.Keys="P">
+                  <Backstage:PrintTab x:Name="printTab" />
+                </Fluent:BackstageTabItem>
+                <Fluent:BackstageTabItem Header="Publish" Fluent:KeyTip.Keys="B">
+                  <Backstage:PublishTab x:Name="publishTab" />
+                </Fluent:BackstageTabItem>
+                <Fluent:BackstageTabItem Header="Help" Fluent:KeyTip.Keys="H">
+                  <Backstage:HelpTab/>
+                </Fluent:BackstageTabItem>
+                <Fluent:Button Icon="Images\Exit.png" Fluent:KeyTip.Keys="X">Exit</Fluent:Button>        
+            </Fluent:Ribbon.BackstageItems>
+
+            <!--Contextual Tab Groups-->
+            <Fluent:Ribbon.ContextualGroups>
+                <Fluent:RibbonContextualTabGroup x:Name="contextualGroupElementTools" Background="Green" BorderBrush="DarkGreen" Header="Element Tools" Visibility="{Binding ElementContextualGroupVisibility, Mode=OneWay}"/>
+            </Fluent:Ribbon.ContextualGroups>
+
+            <!--Home tab-->
+            <Fluent:RibbonTabItem Header="Home" Fluent:KeyTip.Keys="H" ReduceOrder="(groupBoxStyles),(groupBoxStyles),(groupBoxStyles),(groupBoxStyles)">
+                <Fluent:RibbonGroupBox Header="Measurements" Fluent:KeyTip.Keys="ZM" >
+                    <Controls:UndoButton Icon="Images\Undo.png" x:Name="undoButton" ItemsSource="{Binding TransactionContext.PerformedTransactions}" Command="{Binding TransactionContext.UndoCommand}" HintText="Undo" Visibility="Collapsed"/>
+                    <Controls:UndoButton Icon="Images\Redo.png" x:Name="redoButton" ItemsSource="{Binding TransactionContext.RollbackedTransactions}" Command="{Binding TransactionContext.RedoCommand}" HintText="Redo" Visibility="Collapsed"/>
+                    <Fluent:Button Icon="Images\Dummy.png" LargeIcon="Images\DummyLarge.png" SizeDefinition="Large" IsEnabled="False" />
+                    <Fluent:Button Icon="Images\Dummy.png" LargeIcon="Images\DummyLarge.png" SizeDefinition="Large" IsEnabled="False" />
+                    <Fluent:Button Icon="Images\Dummy.png" LargeIcon="Images\DummyLarge.png" SizeDefinition="Large" IsEnabled="False" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Styles" Name="groupBoxStyles" Fluent:KeyTip.Keys="ZS" Icon="Images\Styles.png">
+                    <Fluent:InRibbonGallery Text="Styles" Fluent:KeyTip.Keys="S" ItemsSource="{Binding Source={x:Static Data:Style.Styles}}"
+                                            Selectable="False" VerticalScrollBarVisibility="Auto"
+                                            MinItemsInRow="2" MaxItemsInRow="6" ItemWidth="70" ItemHeight="56"
+                                            Icon="Images\Styles.png" LargeIcon="Images\StylesLarge.png" SizeDefinition="Large">
+                        <Fluent:InRibbonGallery.MenuItems>
+                            <Fluent:MenuItem Text="Save Current Style As..." Command="{Binding SubstanceStyle.SaveAsCommand}" Fluent:KeyTip.Keys="A"/>
+                        </Fluent:InRibbonGallery.MenuItems>
+                        <Fluent:InRibbonGallery.ItemContainerStyle>
+                            <Style TargetType="{x:Type Fluent:GalleryItem}" BasedOn="{StaticResource GalleryItemStyle}">
+                                <Setter Property="Fluent:GalleryItem.Command" Value="{Binding Path=SubstanceStyle.ApplyCommand, ElementName=window}"/>
+                                <Setter Property="Fluent:GalleryItem.CommandParameter" Value="{Binding }"/>
+                                <Setter Property="Fluent:GalleryItem.ContextMenu">
+                                    <Setter.Value>
+                                        <ContextMenu>
+                                            <MenuItem Header="Rename..." Command="{x:Static Data:Style.RenameCommand}" CommandParameter="{Binding}"/>
+                                            <MenuItem Header="Delete" Command="{x:Static Data:Style.RemoveCommand}" CommandParameter="{Binding}"/>
+                                        </ContextMenu>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Fluent:InRibbonGallery.ItemContainerStyle>
+                        <Fluent:InRibbonGallery.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="0" BorderBrush="Black" ToolTip="{Binding}" Background="Transparent">
+                                    <Grid>
+                                        <Image x:Name="image" Source="{Binding Converter={StaticResource ResourceKey=stylePreviewConverter}}" Width="70" Height="50" Stretch="None" VerticalAlignment="Top" Opacity="0.5" />
+                                        <TextBlock Text="{Binding }" Margin="2" VerticalAlignment="Bottom" TextTrimming="CharacterEllipsis"/>
+                                    </Grid>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="1" TargetName="image"/>
+                                    </Trigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </Fluent:InRibbonGallery.ItemTemplate>
+                    </Fluent:InRibbonGallery>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <!--Geometry Tab-->
+            <Fluent:RibbonTabItem Header="Geometry" Fluent:KeyTip.Keys="G" ReduceOrder="groupBoxBallAndStick,groupBoxBallAndStick,groupBoxBallAndStick,groupBoxSheets,groupBoxSheets,groupBoxSheets,groupBoxHelices,groupBoxHelices,groupBoxHelices,groupBoxTurns,groupBoxTurns,groupBoxTurns,groupBoxIsosurface,groupBoxIsosurface,groupBoxIsosurface">
+                <Fluent:RibbonGroupBox Header="Ball-and-Stick" Name="groupBoxBallAndStick" Fluent:KeyTip.Keys="ZB" Icon="Images\BallAndStick.png">
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.AtomSize, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}" 
+                            Text="Atom Radius" InputWidth="90" SizeDefinition="Large" Fluent:KeyTip.Keys="AS"
+                            Increment="5" Format="0.# \%" Minimum="0" Maximum="350" />
+                    <Fluent:ComboBox SelectedItem="{Binding SubstanceStyle.GeometryStyle.AtomSizeStyle, Mode=TwoWay}" 
+                             ItemsSource ="{Binding AtomRadiusStyleEnumValues}" SizeDefinition="Large" Fluent:KeyTip.Keys="AT"
+                             Text="Radius Type" InputWidth="90" IsEditable="False"
+                             VerticalScrollBarVisibility="Hidden"/>
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.BondSize, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"
+                             SizeDefinition="Large" Text="Bond Radius" Increment="5" Fluent:KeyTip.Keys="BS"
+                             Format="0.# \%" Minimum="0" Maximum="100" InputWidth="90" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Sheets" Name="groupBoxSheets" Fluent:KeyTip.Keys="ZS" Icon="Images\Sheets.png">
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.SheetWidth, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"
+                          SizeDefinition="Large"  Text="Width" Increment="10" Format="0.# \%" Minimum="0" Maximum="500" InputWidth="55" Fluent:KeyTip.Keys="SW"/>
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.SheetHeight, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"
+                          SizeDefinition="Large"  Text="Height" Increment="10" Format="0.# \%" Minimum="0" Maximum="500" InputWidth="55" Fluent:KeyTip.Keys="SH"/>
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.ArrowWidth, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"
+                          SizeDefinition="Large"  Text="Arrow" Increment="10" Format="0.# \%" Minimum="0" Maximum="500" InputWidth="55" Fluent:KeyTip.Keys="AW"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Helices" Name="groupBoxHelices" Icon="Images\Helices.png">
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.HelixWidth, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"
+                          SizeDefinition="Large"  Text="Width" Increment="10" Format="0.# \%" Minimum="0" Maximum="200" InputWidth="55" Fluent:KeyTip.Keys="HW"/>
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.HelixHeight, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"
+                          SizeDefinition="Large"  Text="Height" Increment="10" Format="0.# \%" Minimum="0" Maximum="500" InputWidth="55" Fluent:KeyTip.Keys="HH" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Turns" Name="groupBoxTurns" Fluent:KeyTip.Keys="ZT" Icon="Images\Turns.png">
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.TurnWidth, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"
+                          SizeDefinition="Large"  Text="Width" Increment="10" Format="0.# \%" Minimum="0" Maximum="500" InputWidth="55" Fluent:KeyTip.Keys="TW"/>
+                    <Fluent:Spinner Value="{Binding SubstanceStyle.GeometryStyle.TurnHeight, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"
+                          SizeDefinition="Large"  Text="Height" Increment="10" Format="0.# \%" Minimum="0" Maximum="500" InputWidth="55" Fluent:KeyTip.Keys="TH"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Isosurface" Name="groupBoxIsosurface" Fluent:KeyTip.Keys="ZI" Icon="Images\Isosurface.png">
+                    <Fluent:Button Icon="Images\Dummy.png" LargeIcon="Images\DummyLarge.png" SizeDefinition="Large" IsEnabled="False" />
+                    <Fluent:Button Icon="Images\Dummy.png" LargeIcon="Images\DummyLarge.png" SizeDefinition="Large" IsEnabled="False" />
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Styles" Name="groupBoxGeometryStyles" Fluent:KeyTip.Keys="ZT" Icon="Images\GeometryStyles.png">
+                    <Fluent:DropDownButton Text="Geometry Styles" Icon="Images\GeometryStyles.png" LargeIcon="Images\GeometryStylesLarge.png" SizeDefinition="Large" Fluent:KeyTip.Keys="S">
+                        <Fluent:Gallery ItemsSource="{Binding Source={x:Static Data:GeometryStyle.GeometryStyles}}" Orientation="Vertical" Selectable="False" VerticalScrollBarVisibility="Auto">
+                            <Fluent:Gallery.ItemContainerStyle>
+                                <Style TargetType="{x:Type Fluent:GalleryItem}" BasedOn="{StaticResource GalleryItemStyle}">
+                                    <Setter Property="Fluent:GalleryItem.Command" Value="{Binding Path=SubstanceStyle.GeometryStyle.ApplyCommand, ElementName=window}"/>
+                                    <Setter Property="Fluent:GalleryItem.CommandParameter" Value="{Binding }"/>
+                                    <Setter Property="Fluent:GalleryItem.ContextMenu">
+                                        <Setter.Value>
+                                            <ContextMenu>
+                                                <MenuItem Header="Rename..." Command="{x:Static Data:GeometryStyle.RenameCommand}" CommandParameter="{Binding}"/>
+                                                <MenuItem Header="Delete" Command="{x:Static Data:GeometryStyle.RemoveCommand}" CommandParameter="{Binding}"/>
+                                            </ContextMenu>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Fluent:Gallery.ItemContainerStyle>
+                            <Fluent:Gallery.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding }" VerticalAlignment="Center" Margin="3"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Fluent:Gallery.ItemTemplate>
+                        </Fluent:Gallery>
+                        <Fluent:MenuItem Text="Save Current Geometry Style As..." Command="{Binding SubstanceStyle.GeometryStyle.SaveAsCommand}" Fluent:KeyTip.Keys="A"/>
+                    </Fluent:DropDownButton>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <!--Appearance Tab-->
+            <Fluent:RibbonTabItem Header="Appearance" Fluent:KeyTip.Keys="A" ReduceOrder="groupBoxAtomMaterials,groupBoxAtomMaterials,groupBoxAtomMaterials,groupBoxCartoonMaterials,groupBoxCartoonMaterials,groupBoxCartoonMaterials,groupBoxBondMaterials,groupBoxBondMaterials,groupBoxBondMaterials">
+                <Fluent:RibbonGroupBox Header="Atoms Materials" Name="groupBoxAtomMaterials" Fluent:KeyTip.Keys="ZA" Icon="Images\Atoms.png">
+                    <Fluent:Button SizeDefinition="Large" Icon="Images\ColorScheme.png" LargeIcon="Images\EditColorSchemeLarge.png" Click="OnEditColorSchemeButtonClick" Fluent:KeyTip.Keys="C">Color Scheme...</Fluent:Button>
+                    <Fluent:DropDownButton Text="Color Schemes" Icon="Images\ColorScheme.png" LargeIcon="Images\ColorSchemesLarge.png" SizeDefinition="Large" Fluent:KeyTip.Keys="P">
+                        <Fluent:Gallery ItemsSource="{Binding Source={x:Static Data:ColorScheme.ColorSchemes}}" Orientation="Vertical" Selectable="False" VerticalScrollBarVisibility="Auto" >
+                            <Fluent:Gallery.ItemContainerStyle>
+                                <Style TargetType="{x:Type Fluent:GalleryItem}" BasedOn="{StaticResource GalleryItemStyle}">
+                                    <Setter Property="Fluent:GalleryItem.Command" Value="{Binding Path=SubstanceStyle.ColorStyle.ColorScheme.ApplyCommand, ElementName=window}"/>
+                                    <Setter Property="Fluent:GalleryItem.CommandParameter" Value="{Binding }"/>
+                                    <Setter Property="Fluent:GalleryItem.ContextMenu">
+                                        <Setter.Value>
+                                            <ContextMenu>
+                                                <MenuItem Header="Rename..." Command="{x:Static Data:ColorScheme.RenameCommand}" CommandParameter="{Binding}"/>
+                                                <MenuItem Header="Delete" Command="{x:Static Data:ColorScheme.RemoveCommand}" CommandParameter="{Binding}"/>
+                                            </ContextMenu>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Fluent:Gallery.ItemContainerStyle>
+                            <Fluent:Gallery.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <NuGenBioChem:ColorSchemePreview ColorSchemeName="{Binding }"/>
+                                        <TextBlock Text="{Binding }" VerticalAlignment="Center" Margin="5,0,3,0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Fluent:Gallery.ItemTemplate>
+                        </Fluent:Gallery>
+                        <Fluent:MenuItem Text="Save Current Scheme As..." Command="{Binding SubstanceStyle.ColorStyle.ColorScheme.SaveAsCommand}" Fluent:KeyTip.Keys="A"/>
+                    </Fluent:DropDownButton>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Bonds Material" Name="groupBoxBondMaterials" IsLauncherVisible="True" LauncherClick="OnEditBondMaterialClick" LauncherToolTip="Click to show the dialog box to edit advanced parameters of the bond material" Fluent:KeyTip.Keys="ZB" LauncherKeys="FB" Icon="Images\Bonds.png">
+                    <Fluent:CheckBox SizeDefinition="Large" Margin="3,5,0,-5"  x:Name="buttonUseCommonBondMaterial" Text="Fixed Material" IsChecked="{Binding SubstanceStyle.ColorStyle.UseSingleBondMaterial, Mode=TwoWay}" Fluent:KeyTip.Keys="U" Fluent:KeyTip.AutoPlacement="False" Fluent:KeyTip.HorizontalAlignment="Left" Fluent:KeyTip.VerticalAlignment="Top" Fluent:KeyTip.Margin="6,-7,0,0"/>
+                    <Controls:ColorPickerButton SizeDefinition="Middle" x:Name="bondDiffuseColorPicker"  Text="Bond Color" SelectedBrush="{Binding SubstanceStyle.ColorStyle.BondMaterial.Diffuse, Mode=TwoWay, Converter={StaticResource ResourceKey=solidColorBrushConverter}}" Fluent:KeyTip.Keys="B" />
+                    <Fluent:Button SizeDefinition="Middle" Text="Edit Material..." Click="OnEditBondMaterialClick" Icon="Images\Edit.png" Fluent:KeyTip.Keys="E" />                    
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Cartoon Materials" Name="groupBoxCartoonMaterials" IsLauncherVisible="True" LauncherClick="OnEditCartoonMaterialsClick" LauncherToolTip="Click to show the dialog box to edit advanced parameters of the materials of Cartoon elements" Fluent:KeyTip.Keys="ZC" LauncherKeys="FC" Icon="Images\Cartoon.png">
+                    <Controls:ColorPickerButton x:Name="helixDiffuseColorPicker" SizeDefinition="Middle" Text="Helices" SelectedBrush="{Binding SubstanceStyle.ColorStyle.HelixMaterial.Diffuse, Mode=TwoWay, Converter={StaticResource ResourceKey=solidColorBrushConverter}}" Fluent:KeyTip.Keys="H" />
+                    <Controls:ColorPickerButton x:Name="sheetDiffuseColorPicker" SizeDefinition="Middle" Text="Sheets" SelectedBrush="{Binding SubstanceStyle.ColorStyle.SheetMaterial.Diffuse, Mode=TwoWay, Converter={StaticResource ResourceKey=solidColorBrushConverter}}" Fluent:KeyTip.Keys="W"/>
+                    <Controls:ColorPickerButton x:Name="turnDiffuseColorPicker" SizeDefinition="Middle" Text="Turns" SelectedBrush="{Binding SubstanceStyle.ColorStyle.TurnMaterial.Diffuse, Mode=TwoWay, Converter={StaticResource ResourceKey=solidColorBrushConverter}}" Fluent:KeyTip.Keys="R" />
+                    <Fluent:Button Text="Advanced Materials..." Click="OnEditCartoonMaterialsClick" Icon="Images\AdvancedMaterials.png" LargeIcon="Images\AdvancedMaterialsLarge.png" SizeDefinition="Large" Fluent:KeyTip.Keys="A"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Styles" Fluent:KeyTip.Keys="ZS">
+                    <Fluent:DropDownButton Text="Color Styles" Icon="Images\ColorStyles.png" LargeIcon="Images\ColorStylesLarge.png" SizeDefinition="Large" Fluent:KeyTip.Keys="S">
+                        <Fluent:Gallery ItemsSource="{Binding Source={x:Static Data:ColorStyle.ColorStyles}}" Orientation="Vertical" Selectable="False" VerticalScrollBarVisibility="Auto">
+                            <Fluent:Gallery.ItemContainerStyle>
+                                <Style TargetType="{x:Type Fluent:GalleryItem}" BasedOn="{StaticResource GalleryItemStyle}">
+                                    <Setter Property="Fluent:GalleryItem.Command" Value="{Binding Path=SubstanceStyle.ColorStyle.ApplyCommand, ElementName=window}"/>
+                                    <Setter Property="Fluent:GalleryItem.CommandParameter" Value="{Binding }"/>
+                                    <Setter Property="Fluent:GalleryItem.ContextMenu">
+                                        <Setter.Value>
+                                            <ContextMenu>
+                                                <MenuItem Header="Rename..." Command="{x:Static Data:ColorStyle.RenameCommand}" CommandParameter="{Binding}"/>
+                                                <MenuItem Header="Delete" Command="{x:Static Data:ColorStyle.RemoveCommand}" CommandParameter="{Binding}"/>
+                                            </ContextMenu>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Fluent:Gallery.ItemContainerStyle>
+                            <Fluent:Gallery.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding }" VerticalAlignment="Center" Margin="3"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Fluent:Gallery.ItemTemplate>
+                        </Fluent:Gallery>
+                        <Fluent:MenuItem Text="Save Current Color Style As..." Command="{Binding SubstanceStyle.ColorStyle.SaveAsCommand}" Fluent:KeyTip.Keys="A"/>
+                    </Fluent:DropDownButton>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <!--View Tab-->
+            <Fluent:RibbonTabItem Header="View" Fluent:KeyTip.Keys="V">
+                <Fluent:RibbonGroupBox Header="Camera" Fluent:KeyTip.Keys="ZC">
+                    <Fluent:ComboBox SelectedItem="{Binding ElementName=visualizer, Path=CameraProjectionMode, Mode=TwoWay}" ItemsSource="{Binding CameraModesValues}" Text="Projection" InputWidth="90" 
+                                     VerticalScrollBarVisibility="Hidden" IsEditable="False" Fluent:KeyTip.Keys="P"/>
+                    <Fluent:Spinner x:Name="spinnerFieldOfView" Text="Field Of View" Value="{Binding ElementName=visualizer, Path=FieldOfView, Mode=TwoWay}" Increment="1" Format="0.## °" Minimum="10" Maximum="160"  InputWidth="90" Fluent:KeyTip.Keys="V"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Zoom" Fluent:KeyTip.Keys="ZZ">
+                    <Fluent:Button Text="Show All" Icon="Images\ShowAll.png" LargeIcon="Images\ShowAllLarge.png"  Command="{Binding ShowAllComand, ElementName=visualizer}" Fluent:KeyTip.Keys="A"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Navigation" Fluent:KeyTip.Keys="ZN">
+                    <Fluent:DropDownButton Text="Look At" Icon="Images\LookAt.png" LargeIcon="Images\LookAtLarge.png" Fluent:KeyTip.Keys="L">
+                        <Fluent:MenuItem Text="Look At +X" Command="{Binding LookAtComand, ElementName=visualizer, Mode=OneWay}" CommandParameter="+X" Fluent:KeyTip.Keys="PX"/>
+                        <Fluent:MenuItem Text="Look At +Y" Command="{Binding LookAtComand, ElementName=visualizer, Mode=OneWay}" CommandParameter="+Y" Fluent:KeyTip.Keys="PY"/>
+                        <Fluent:MenuItem Text="Look At +Z" Command="{Binding LookAtComand, ElementName=visualizer, Mode=OneWay}" CommandParameter="+Z" Fluent:KeyTip.Keys="PZ"/>
+                        <Fluent:MenuItem Text="Look At -X" Command="{Binding LookAtComand, ElementName=visualizer, Mode=OneWay}" CommandParameter="-X" Fluent:KeyTip.Keys="NX" />
+                        <Fluent:MenuItem Text="Look At -Y" Command="{Binding LookAtComand, ElementName=visualizer, Mode=OneWay}" CommandParameter="-Y" Fluent:KeyTip.Keys="NY" />
+                        <Fluent:MenuItem Text="Look At -Z" Command="{Binding LookAtComand, ElementName=visualizer, Mode=OneWay}" CommandParameter="-Z" Fluent:KeyTip.Keys="NZ"/>
+                        <Separator/>
+                        <Fluent:MenuItem Text="Look Bias" Command="{Binding LookAtComand, ElementName=visualizer, Mode=OneWay}" CommandParameter="Bias" Fluent:KeyTip.Keys="LB" />
+                    </Fluent:DropDownButton>
+                    <Fluent:DropDownButton Text="Navigate To.." Icon="Images\NavigateTo.png" LargeIcon="Images\NavigateToLarge.png" ResizeMode="Both" Fluent:KeyTip.Keys="N">
+                        <Fluent:Gallery ItemsSource="{Binding Substance.Molecules}" Orientation="Vertical" Selectable="False">
+                            <Fluent:Gallery.ItemContainerStyle>
+                                <Style TargetType="{x:Type Fluent:GalleryItem}" BasedOn="{StaticResource GalleryItemStyle}">
+                                    <Setter Property="Fluent:GalleryItem.Command" Value="{Binding NavigateToComand, ElementName=visualizer, Mode=OneWay}"/>
+                                    <Setter Property="Fluent:GalleryItem.CommandParameter" Value="{Binding }"/>
+                                </Style>
+                            </Fluent:Gallery.ItemContainerStyle>
+                            <Fluent:Gallery.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding Converter={StaticResource ResourceKey=moleculePreviewConverter}}" Margin="1"/>
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Fluent:Gallery.ItemTemplate>
+                        </Fluent:Gallery>
+                    </Fluent:DropDownButton>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+            <!--Element Material Tab-->
+            <Fluent:RibbonTabItem Header="Material" Group="{Binding ElementName=contextualGroupElementTools, Mode=OneWay}" Fluent:KeyTip.Keys="E">
+                <Fluent:RibbonGroupBox Header="Element Material">
+                    <NuGenBioChem:MaterialControl DataContext="{Binding SelectedElementMaterial}"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+
+        </Fluent:Ribbon>
+
+
+        <!--Status Bar-->
+    <Controls:RibbonStatusBar DockPanel.Dock="Bottom">
+      <Controls:RibbonStatusBarItem Title="Molecules Number"
+                                    Value="{Binding Substance.Molecules.Count}">
+        <TextBlock Text="{Binding Substance.Molecules.Count, StringFormat=Molecules: {0:0}}"/>
+      </Controls:RibbonStatusBarItem>
+      <Separator/>
+      <Controls:RibbonStatusBarItem Title="Selected Atoms"
+                                    Value="{Binding Substance.SelectedAtoms.Count}"
+                                    ToolTip="{Binding SelectionDetails}"
+                                    Content="{Binding SelectionInfo}"/>
+      <Controls:RibbonStatusBarItem Title="Printing Document"
+                                    Value="{Binding PrintingPercentage, ElementName=printTab}"
+                                    Content="{Binding PrintingContent, ElementName=printTab}"/>
+      <Separator/>
+      <Controls:RibbonStatusBarItem Title="Zoom" HorizontalAlignment="Right"
+                                    Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:0}\%}"/>
+      <Controls:RibbonStatusBarItem Title="Zoom Slider" HorizontalAlignment="Right">
+        <Slider x:Name="zoomSlider" Minimum="20" Maximum="500" IsDirectionReversed="False"
+                Value="{Binding Path=Zoom, ElementName=visualizer, Mode=TwoWay, Converter={StaticResource ResourceKey=percentageConverter}}"/>
+      </Controls:RibbonStatusBarItem>
+    </Controls:RibbonStatusBar>
+
+    <Controls:ResidueGrid Substance="{Binding Substance}" DockPanel.Dock="Bottom" MaxHeight="150" SubstanceStyle="{Binding SubstanceStyle}"/>
+    <Grid>
+            <Visualization:Visualizer x:Name="visualizer" />
+        
+            <!--Loading Caption-->
+            <Border Name="borderLoading" VerticalAlignment="Center" HorizontalAlignment="Center" BorderBrush="LightGray" Background="Black" BorderThickness="1" CornerRadius="12" Padding="21,7,21,7" Visibility="Collapsed">
+                <TextBlock Text="Loading..." Foreground="Wheat"/>
+            </Border>
+        
+        </Grid>
+  </DockPanel>
+</Fluent:RibbonWindow>

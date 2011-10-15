@@ -1,0 +1,21 @@
+﻿<Application x:Class="NuGenBioChem.Application"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Window.xaml" Startup="OnStartup" Exit="OnApplicationExit">
+    <Application.Resources>
+      <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+          <ResourceDictionary Source="/Fluent;Component/Themes/Office2010/Silver.xaml"/>
+          <ResourceDictionary Source="Themes/ColorsSilver.xaml"/>
+          <ResourceDictionary Source="Themes/ColorPickerButton.xaml"/>
+          <ResourceDictionary Source="Themes/RibbonStatusBar.xaml"/>
+          <ResourceDictionary Source="Themes/Slider.xaml"/>
+          <ResourceDictionary Source="Themes/HyperlinkButton.xaml"/>
+          <ResourceDictionary Source="Themes/RecentItemsListBox.xaml"/>
+          <ResourceDictionary Source="Themes/UndoButton.xaml"/>
+          <ResourceDictionary Source="Themes/UndoItem.xaml"/>
+          <ResourceDictionary Source="Themes/BackstageComboBox.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
+    </Application.Resources>
+</Application>

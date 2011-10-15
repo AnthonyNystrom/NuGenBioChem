@@ -1,0 +1,221 @@
+﻿<UserControl x:Class="NuGenBioChem.Controls.ResidueGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Controls="clr-namespace:NuGenBioChem.Controls" mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+  <UserControl.Resources>
+    <Style x:Key="ResidueListBoxItemStyle" TargetType="ListBoxItem">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ListBoxItem">
+            <Grid Background="{TemplateBinding Background}" Height="22" Width="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+              <ContentPresenter Margin="0,0,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+              <Border x:Name="selectedBorder" BorderThickness="1" BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}" Visibility="Collapsed">
+                <Border BorderThickness="1" BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
+              </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Visibility" Value="Visible" TargetName="selectedBorder"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+	<Style x:Key="NumberListBoxItemStyle" TargetType="ListBoxItem">
+	   <Setter Property="IsHitTestVisible" Value="False"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ListBoxItem">
+            <Grid Height="Auto" Width="30">            	
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Height="Auto" Margin="0"/>
+              <Rectangle Fill="{DynamicResource StatusBarSeparatorBackgroundBrush}" Stroke="{DynamicResource StatusBarSeparatorBorderBrush}" StrokeThickness="1" Width="3" HorizontalAlignment="Right" Margin="0,0,-1,0" Height="20" VerticalAlignment="Center"/>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+	<Style TargetType="ToggleButton">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ToggleButton">
+          	<Grid Height="22">
+        	<Border BorderThickness="1" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" Background="{DynamicResource StatusBarInnerBackgroundBrush}"/>       				
+			<Border x:Name="border" BorderThickness="1" CornerRadius="0" Background="{DynamicResource TransparentBrush}" BorderBrush="{DynamicResource TransparentBrush}" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			<Border x:Name="border1" Height="Auto" BorderBrush="{DynamicResource TransparentBrush}" BorderThickness="1" CornerRadius="0" Background="{DynamicResource TransparentBrush}">
+				<Grid Height="Auto">
+					<Rectangle x:Name="rectangle" StrokeThickness="0" Visibility="Collapsed">
+						<Rectangle.Fill>
+							<RadialGradientBrush Center="0.503,1" GradientOrigin="0.503,1" RadiusY="0.202">
+								<GradientStop Color="#7FFFFFFF" Offset="0"/>
+								<GradientStop Offset="1"/>
+							</RadialGradientBrush>
+						</Rectangle.Fill>
+					</Rectangle>
+					<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,2,7,2"/>					
+				</Grid>
+			</Border>
+		</Border>
+		<Rectangle Fill="{DynamicResource StatusBarSeparatorBackgroundBrush}" Stroke="{DynamicResource StatusBarSeparatorBorderBrush}" StrokeThickness="0" Height="1" VerticalAlignment="Bottom" Margin="1,0,1,-1"/>
+		</Grid>
+		<ControlTemplate.Triggers>			
+			<Trigger Property="IsPressed" Value="True">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+			</Trigger>
+			<Trigger Property="IsChecked" Value="True">
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>
+			</Trigger>						
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonHoverOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonHoverOuterBorderBrush}"/>
+				<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+			</MultiTrigger>			
+			<MultiTrigger>
+				<MultiTrigger.Conditions>
+					<Condition Property="IsMouseOver" Value="True"/>
+					<Condition Property="IsPressed" Value="False"/>
+					<Condition Property="IsChecked" Value="True"/>
+				</MultiTrigger.Conditions>
+				<Setter Property="BorderBrush" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>
+				<Setter Property="Background" TargetName="border1" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
+				<Setter Property="Background" TargetName="border" Value="{DynamicResource ButtonPressedOuterBackgroundBrush}"/>
+				<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ButtonPressedOuterBorderBrush}"/>
+				<Setter Property="Visibility" TargetName="rectangle" Value="Visible"/>
+			</MultiTrigger>
+
+		</ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>	
+	<Style x:Key="{x:Type ListBox}" TargetType="ListBox">
+  <Setter Property="SnapsToDevicePixels" Value="true"/>
+  <Setter Property="OverridesDefaultStyle" Value="true"/>
+    <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+    <Setter Property="Template">
+    <Setter.Value>
+      <ControlTemplate TargetType="ListBox">
+          <ScrollViewer 
+            Margin="0"
+            Focusable="false">
+          	
+            <ItemsPresenter Margin="0"/>
+			
+          </ScrollViewer>
+        <ControlTemplate.Triggers>
+          <Trigger Property="IsGrouping" Value="true">
+            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+          </Trigger>
+        </ControlTemplate.Triggers>
+      </ControlTemplate>
+    </Setter.Value>
+  </Setter>
+</Style>
+<DrawingBrush x:Key="HorizontalLinesBrush" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<DrawingGroup.Children>
+					<GeometryDrawing Geometry="M 0,22L 30,22 30,0">
+						<GeometryDrawing.Pen>
+							<Pen LineJoin="Round" Brush="{DynamicResource StatusBarSeparatorBackgroundBrush}"/>
+						</GeometryDrawing.Pen>
+					</GeometryDrawing>
+				</DrawingGroup.Children>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>    
+    <DataTemplate x:Key="ResiduesListDataTemplate">
+      <Grid>
+      	<Grid.Background>      		
+      		<MultiBinding>
+      			<Binding/>
+				<Binding Path="SubstanceStyle" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Controls:ResidueGrid}}"/>
+      			<MultiBinding.Converter>
+					<Controls:ResidueColorConverter/>      				  			
+				</MultiBinding.Converter>
+			</MultiBinding>    	
+		</Grid.Background>        
+		<TextBlock Margin="2" Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      </Grid>
+    </DataTemplate>
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="22"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <ScrollViewer x:Name="chainsScrollViewer" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Margin="0,-1,0,0">
+      <StackPanel Orientation="Vertical">
+    		<StackPanel x:Name="chainsStackPanel" VerticalAlignment="Top" d:LayoutOverrides="Width"/>
+    		<Rectangle x:Name="horizontalScrollPlaceholder" Height="17"  Stroke="{DynamicResource StatusBarBorderBrushBrush}" Fill="{DynamicResource StatusBarInnerBackgroundBrush}"/>
+    	</StackPanel>
+    </ScrollViewer>
+    <Border Height="22" Grid.ColumnSpan="2" Grid.Row="0" BorderThickness="1" BorderBrush="{DynamicResource StatusBarBorderBrushBrush}" Background="{DynamicResource StatusBarInnerBackgroundBrush}"/>
+	<Rectangle Fill="{DynamicResource StatusBarSeparatorBackgroundBrush}" Stroke="{DynamicResource StatusBarSeparatorBorderBrush}" StrokeThickness="1" Width="3" HorizontalAlignment="Right" Margin="0,1,-1,1" Grid.Column="0" Grid.Row="0"/>
+	<Rectangle Fill="{DynamicResource StatusBarSeparatorBackgroundBrush}" Stroke="{DynamicResource StatusBarSeparatorBorderBrush}" StrokeThickness="0" Height="1" VerticalAlignment="Bottom" Margin="1,0,1,0" Grid.Column="1"/>
+    <ScrollViewer x:Name="numbersScrollViewer" VerticalScrollBarVisibility ="Disabled" HorizontalScrollBarVisibility="Hidden" Grid.Row="0" Grid.Column="1" >
+	<StackPanel Orientation="Horizontal">
+    		<ListBox x:Name="numbersListBox" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource NumberListBoxItemStyle}" Margin="0" BorderThickness="1,0" Background="{x:Null}" d:LayoutOverrides="Width">
+    			<ListBox.ItemsPanel>
+    				<ItemsPanelTemplate>
+    					<StackPanel Orientation="Horizontal"/>
+    				</ItemsPanelTemplate>
+    			</ListBox.ItemsPanel>
+    		</ListBox>
+    		<Rectangle x:Name="verticalScrollPlaceholder" Width="17" Stroke="{DynamicResource StatusBarBorderBrushBrush}" Fill="{DynamicResource StatusBarInnerBackgroundBrush}"/>
+    	</StackPanel>
+	</ScrollViewer>
+	<ScrollViewer x:Name="residueScrollViewer" VerticalScrollBarVisibility ="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="1" ScrollChanged="OnResidueScrollChanged" SizeChanged="OnResidueScrollSizeChanged">
+    <Grid x:Name="residueGrid" Background="{DynamicResource HorizontalLinesBrush}" VerticalAlignment="Top" HorizontalAlignment="Left">
+	<ListBox Margin="0" ItemContainerStyle="{StaticResource ResidueListBoxItemStyle}" ItemTemplate="{StaticResource ResiduesListDataTemplate}" x:Name="residueListBox" ScrollViewer.VerticalScrollBarVisibility ="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Extended" PreviewMouseLeftButtonDown="OnPreviewMouseLeftDown" PreviewMouseLeftButtonUp="OnPreviewMouseLeftUp" MouseMove="OnMouseMove" SelectionChanged="OnResiduesSelectionChanged" Background="Transparent">
+      <ListBox.GroupStyle>
+        <GroupStyle>
+          <GroupStyle.HeaderTemplate>
+            <DataTemplate></DataTemplate>
+          </GroupStyle.HeaderTemplate>
+		  <GroupStyle.ContainerStyle>
+		  	<Style TargetType="GroupItem">
+		  		<Setter Property="Template">
+		  			<Setter.Value>
+		  				<ControlTemplate>
+		  					<ItemsPresenter />		
+						</ControlTemplate>		
+					</Setter.Value>			
+				</Setter>
+			</Style>
+		  </GroupStyle.ContainerStyle>
+          <GroupStyle.Panel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Vertical"/>
+            </ItemsPanelTemplate>
+          </GroupStyle.Panel>
+        </GroupStyle>
+      </ListBox.GroupStyle>
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+    </ListBox>
+	</Grid>
+	</ScrollViewer>
+
+  </Grid>
+
+</UserControl>
